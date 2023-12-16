@@ -6,18 +6,18 @@ Problem statement taken from [Create a privacy preserving version of Shazam usin
 
 ## Table of Contents
 - [Conceptual Architecture](#conceptual-architecture)
-- [Proof of Concept](#prrof-of-concept)
+- [Proof of Concept](#proof-of-concept)
 - [Implementation](#quantization-aware-implementation)
 - [Evaluation](#evaluation)
 - [Next steps](#next-steps)
-## Conceptual Architecture<a name="concept"></a>
+## Conceptual Architecture<a name="conceptual-architecture"></a>
 
-## Proof of Concept in clear
+## Proof of Concept <a name="proof-of-concept"></a>
 
-## Quantization aware implementation
+## Quantization aware implementation<a name="quantization-aware-implementation"></a>
 
-## Evaluation
+## Evaluation<a name="evaluation"></a>
 
-## Next steps
+## Next steps<a name="next-steps"></a>
 
 
