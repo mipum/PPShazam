@@ -122,6 +122,23 @@ The observation is that the weaker link of the two-staged classification is the 
 
 ## Quantization aware implementation<a name="quantization-aware-implementation"></a>
 
+### The baseline
+For Quantization aware implementation, we leverage on [Concrete ML image classification use case example](https://github.com/zama-ai/concrete-ml/tree/main/use_case_examples/cifar/cifar_brevitas_finetuning)
+The benefit we've gained from extensive investment in the PoC is that now we need to develop only two models - fp32 and quanitized image classification. All the work done in PoC on clustering stays intact, as we use here clusterization as sone at the PoC.
+ - fp32 model implemented in [Fp32_model_training.ipynb](Fp32_model_training.ipynb) notebook
+ - quantized model implemented in [Quantization_aware_training_and_evaluation.ipynb](Quantization_aware_training_and_evaluation.ipynb) notebook
+
+### Modifications
+The following noticeable changes implemented on top of the baseline Concrete ML example:
+ 1. Change the models to support 3x224x224 image inputs, rather that 3x32x32 as in the original example
+ 2. Hit an issue of concrete-ml installation resuling in versions conflict on several libraries, inclusing `torchvision` (as appears in the output of the `!pip install  concrete-ml brevitas` cell of the quantized model notebbok). To circumvene the issue, needed to separate fp32 and quantized training into two notebooks, and transfer intermediate torch datasets from one notebook to another (for QAT) via cloud storage
+ 3. IMHO found in the example a mismatch between kernel sizes of the AvgPool2d of `Fp32VGG11` (residing between the features and the final layer), and the last AvgPool2d of `QuantVGG11` features. Fixed
+
+## Results
+The resulting `state_dict`s of classification modlels (both cluster and intra-cluster ones), as well as training history of all these models, can be found [here](https://drive.google.com/drive/folders/15rX2vmkOumePB3aI_VkQKhXbhpsSqAlJ?usp=sharing)
+
+The fp32 results reside in the reffered folder, and quantized model training results reside in the `quant` subfolder of this folder
+
 ## Evaluation<a name="evaluation"></a>
 
 ## Next steps<a name="next-steps"></a>
