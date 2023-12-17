@@ -68,7 +68,14 @@ We have tried several of-the-shelve audio embeddings methods:
  - [OpenCLIP](https://github.com/mlfoundations/open_clip)
  - [YAMNet](https://www.tensorflow.org/hub/tutorials/yamnet)
  - [OpenL3](https://github.com/marl/openl3)
+
 to find that cluster classification models, with clustering based on these embedding methods, give dissatisfactory results
+
+Given that, we have developed a custom embedding model, based on Siamese Contrastive Learning
+<img src="assets/embeddings_training.jpg" width="650"/>
+
+Implementation in [Embeddings_training.ipynb](Embeddings_training.ipynb)
+
 
 
 
