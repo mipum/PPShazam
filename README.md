@@ -59,7 +59,16 @@ The resulting datasets uploaded to [HuggingFace Hub](https://huggingface.co/arie
  - `arieg/cluster{XX}_large_150` - 150 large augmentations for each of the clusters, XX is a cluster id. Used for training of intra-cluster classification model
  - `arieg/8000_large_4_siamclusters` - spectrogram of an original audio, plus 4 large augmentations per each of 8000 tracks. Used for training of cluster classification model
  - `arieg/cluster{XX}_{augmentation}_10` - 10 augmented tracks per cluster, with each of 3 levels of augmentation. Used for end-to-end testing
+
 ### Clustering
+Several experiments demonstrated that the discriminating power of spectrogram based image classification model is quite strong, even on noisy (`large` augmentation) queries. Hence, with the two-staged classification approach, special attention should be paid to the first stage, cluster classification - need to ensure sufficient discriminating power between clusters. For this, need to ensure that tracks belonging to one cluster are "similar", while tracks belonging to different clusters are less "similar". A normative way to achieve such clusterig is to use audio (or audio spectrogram) embeddings as a baseline for tracks "similarity" measure
+
+We have tried several of-the-shelve audio embeddings methods:
+ - [MERT-v1-95M](https://huggingface.co/m-a-p/MERT-v1-95M)
+ - [OpenCLIP](https://github.com/mlfoundations/open_clip)
+ - [YAMNet](https://www.tensorflow.org/hub/tutorials/yamnet)
+ - [OpenL3](https://github.com/marl/openl3)
+to find that cluster classification models, with clustering based on these embedding methods, give dissatisfactory results
 
 
 
