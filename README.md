@@ -72,12 +72,17 @@ We have tried several of-the-shelve audio embeddings methods:
 to find that cluster classification models, with clustering based on these embedding methods, give dissatisfactory results
 
 Given that, we have developed a custom embedding model, based on Siamese Contrastive Learning
-<img src="assets/embeddings_training.jpg" width="650"/>
+<img src="assets/embeddings_training.jpg" width="750"/>
 
 Implementation in [Embeddings_training.ipynb](Embeddings_training.ipynb)
-
-
-
+Based on embeddings model, we perform clustering using [faiss](https://github.com/facebookresearch/faiss) implementation in the [Clustering.ipynb](Clustering.ipynb) notebook
+### Intra-cluster track classification
+<img src="assets/intra_cluster_track_classification.jpg" width="750"/>
+VGG19 based implementation in the [PoC_intra_cluster_classification_training.ipynb](PoC_intra_cluster_classification_training.ipynb) notebook
+### Cluster classification
+<img src="assets/cluster_classification.jpg" width="750"/>
+The same model is used as for intra-cluster track classification
+VGG19 based implementation in the [PoC_cluster_classification_training.ipynb](PoC_cluster_classification_training.ipynb) notebook
 
 
 ## Quantization aware implementation<a name="quantization-aware-implementation"></a>
