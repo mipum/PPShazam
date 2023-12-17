@@ -10,6 +10,7 @@ Problem statement taken from [Create a privacy preserving version of Shazam usin
 - [Implementation](#quantization-aware-implementation)
 - [Evaluation](#evaluation)
 - [Next steps](#next-steps)
+- [Acknowledgements](#acknowledgements)
 ## Conceptual Architecture<a name="conceptual-architecture"></a>
 ### 1. How Shazam architecture would look like if built today
 Shazam problem statement is best described in the terms of Semantic search. If approached today from scratch, the most efficient approach would likely consist of the following steps:
@@ -124,7 +125,7 @@ The observation is that the weaker link of the two-staged classification is the 
 
 ### The baseline
 For Quantization aware implementation, we leverage on [Concrete ML image classification use case example](https://github.com/zama-ai/concrete-ml/tree/main/use_case_examples/cifar/cifar_brevitas_finetuning)
-The benefit we've gained from extensive investment in the PoC is that now we need to develop only two models - fp32 and quanitized image classification. All the work done in PoC on clustering stays intact, as we use here clusterization as sone at the PoC.
+The benefit we've gained from extensive investment in the PoC is that now we need to develop only two models - fp32 and quantized image classification. All the work done in PoC on clustering stays intact, as we use clusterization here as done at the PoC.
  - fp32 model implemented in [Fp32_model_training.ipynb](Fp32_model_training.ipynb) notebook
  - quantized model implemented in [Quantization_aware_training_and_evaluation.ipynb](Quantization_aware_training_and_evaluation.ipynb) notebook
 
@@ -148,5 +149,18 @@ End-to-end evaluation of the quantized system implemented in the `End to End tes
 Results are saved in a [e2e_test_results.csv](e2e_test_results.csv) file
 
 ## Next steps<a name="next-steps"></a>
+### Accuracy
+Accuracy of the solution might be improved by (a combination of) following approaches:
+ - create larger training datasets, for each participating model
+ - use a larger baseline model, e.g. VGG19 rather than VGG11 (as currently used in fp32 and quantized notebooks)
+ - make classification model top layers deeper (e.g. use 3 layers, and not one final layer as today)
+ - fine-tune clustering - e.g. introduce min- and max-size of a cluster
+ - fine-tune hyperparameters of the classification model, e.g. by applying AutoML techniques
 
+At this point, we did not have sufficient time and/or compute resources to explore these routes
+### Scale Up
+Based on the observed results with `fma_small`, we believe the above approach can be reasonably successfully extended to address `fma_full` library. Since we observe intra-cluster classification accuracy stronger than cluster classification - we propose to cluster `fma_full` (~106K tracks) into ~200 clusters, with average size of ~530 tracks per cluster 
+
+## Acknowledgements
+We’d like to thank Zama team for an exciting opportunity to work on this bounty
 
