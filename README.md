@@ -116,7 +116,9 @@ We observed the following representative results:
 | Top-1 | 0.83 | 0.58 | 0.43 |
 | Top-3 | 0.97 | 0.77 | 0.64 |
 
+The observation is that the weaker link of the two-staged classification is the first stage of cluster classification. Intra-cluster classification demonstrates strong performance, as illustrated by a typical learning curve
 
+<img src="assets/acc_512_02.png" width="300"/>
 
 ## Quantization aware implementation<a name="quantization-aware-implementation"></a>
 
