@@ -145,7 +145,7 @@ The fp32 results reside in the referred folder, and quantized model training res
 ## Evaluation<a name="evaluation"></a>
 End-to-end evaluation of the quantized system implemented in the `End to End test` section of the [Quantization_aware_training_and_evaluation.ipynb](Quantization_aware_training_and_evaluation.ipynb) notebook. Implementation follows the same methodology as end-to-end evaluation of the clear system performed at the PoC. 
 
-Results are saved in a [e2e_test_results.csv](assets/e2e_test_results.csv) file
+Results are saved in a [e2e_test_results.csv](e2e_test_results.csv) file
 
 ## Next steps<a name="next-steps"></a>
 
