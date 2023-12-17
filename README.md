@@ -40,7 +40,8 @@ An overview of training an intra-cluster classification model
 
 An overview of training an intra-cluster classification mode
 <img src="assets/cluster_classification.jpg" width="650"/>
-Indeed, as a foundation for both models there is a need to have a reasonable clusterization of the music library. This will be reviewed in the following section
+
+Indeed, as a foundation for both models need to have a suitable clusterization of the music library. This will be reviewed in the following section
 ## Proof of Concept <a name="proof-of-concept"></a>
 We approach construction of the solution in two waves:
  1. Proof of concept in clear. The objective of this effort is to assess feasibility and accuracy of a solution in clear, as a baseline for a FHE-enabled solution. As well, at this stage we develop many assets (datasets and models) which are then reused for construction of the FHE-enabled model
@@ -78,10 +79,12 @@ Implementation in [Embeddings_training.ipynb](Embeddings_training.ipynb)
 Based on embeddings model, we perform clustering using [faiss](https://github.com/facebookresearch/faiss) implementation in the [Clustering.ipynb](Clustering.ipynb) notebook
 ### Intra-cluster track classification
 <img src="assets/intra_cluster_track_classification.jpg" width="750"/>
+
 VGG19 based implementation in the [PoC_intra_cluster_classification_training.ipynb](PoC_intra_cluster_classification_training.ipynb) notebook
 ### Cluster classification
 <img src="assets/cluster_classification.jpg" width="750"/>
 The same model is used as for intra-cluster track classification
+
 VGG19 based implementation in the [PoC_cluster_classification_training.ipynb](PoC_cluster_classification_training.ipynb) notebook
 
 
