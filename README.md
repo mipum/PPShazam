@@ -94,6 +94,29 @@ The same model is used as for intra-cluster track classification
 
 VGG19 based implementation in the [PoC_cluster_classification_training.ipynb](PoC_cluster_classification_training.ipynb) notebook
 
+### PoC Evaluation
+A digram illustrating an end-to-end flow
+<img src="assets/end2end_inference_fp32.jpg" width="750"/>
+
+We use `arieg/cluster{XX}_{augmentation}_10` datasets for several sample clusters, with each of 3 levels of augmentation. We run tracks from these datasets through the end-to-end flow, and measute top-1 and top-3 hits. Evaluation is imlemented in the [PoC_end_to_end_evaluation.ipynb](PoC_end_to_end_evaluation.ipynb) notebook
+
+We observed the following representative results:
+|        | cluster00_small_10 | cluster00_medium_10 | cluster00_large_10 |
+| --- | :---: | :---: | :---: |
+| Top-1 | 0.90 | 0.72 | 0.60 |
+| Top-3 | 0.99 | 0.89 | 0.85 |
+
+|        | cluster01_small_10 | cluster01_medium_10 | cluster01_large_10 |
+| --- | :---: | :---: | :---: |
+| Top-1 | 0.63 | 0.44 | 0.32 |
+| Top-3 | 0.93 | 0.72 | 0.59 |
+
+|        | cluster02_small_10 | cluster02_medium_10 | cluster02_large_10 |
+| --- | :---: | :---: | :---: |
+| Top-1 | 0.83 | 0.58 | 0.43 |
+| Top-3 | 0.97 | 0.77 | 0.64 |
+
+
 
 ## Quantization aware implementation<a name="quantization-aware-implementation"></a>
 
