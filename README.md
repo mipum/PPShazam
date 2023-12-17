@@ -77,6 +77,13 @@ Given that, we have developed a custom embedding model, based on Siamese Contras
 
 Implementation in [Embeddings_training.ipynb](Embeddings_training.ipynb)
 Based on embeddings model, we perform clustering using [faiss](https://github.com/facebookresearch/faiss) implementation in the [Clustering.ipynb](Clustering.ipynb) notebook
+
+As an illustration, a t-SNE plot of embeddings of several tracks with `large` augmentations. Augmentations of a same track designated by the same color
+<img src="assets/bw_spec_cls_80_43_vgg19.jpg" width="750"/>
+
+t-SNE plot of embeddings of the whole `fma_small` dataset, color code per cluster
+<img src="assets/clusters_of_faiss_embeddings.jpg" width="750"/>
+
 ### Intra-cluster track classification
 <img src="assets/intra_cluster_track_classification.jpg" width="750"/>
 
