@@ -36,11 +36,17 @@ A refined approach we're taking is of a two-stage classification. The idea is to
 For a `fma_small` library, we've chosen `num_clusters=80` so than an average cluser size would be around 100 tracks - which seems a very reasonable starting point for highly accurate intra-cluster classification models
 
 An overview of training an intra-cluster classification model
-![#### An overview of training an intra-cluster classification model](assets/intra_cluster_track_classification.jpg)
+<img src="assets/intra_cluster_track_classification.jpg" width="650"/>
 
-An overview of training an intra-cluster classification model
-![#### An overview of training a cluster classification model](assets/cluster_classification.jpg)
+An overview of training an intra-cluster classification mode
+<img src="assets/cluster_classification.jpg" width="650"/>
+Indeed, as a foundation for both models there is a need to have a reasonable clusterization of the music library. This will be reviewed in the following section
 ## Proof of Concept <a name="proof-of-concept"></a>
+We approach construction of the solution in two waves:
+ 1. Proof of concept in clear. The objective of this effort is to assess feasibility and accuracy of a solution in clear, as a baseline for a FHE-enabled solution. As well, at this stage we develop many assets (datasets and models) which are then reused for construction of the FHE-enabled model
+ 2. FHE enabled solution
+
+We're now focusing on the first wave. For PoC we use a `fma_small` music library (see discussion on larger datasets at [Next steps](#next-steps))
 
 ## Quantization aware implementation<a name="quantization-aware-implementation"></a>
 
