@@ -22,15 +22,15 @@ However this approach is **not FHE friendly**. The embeddings of the library con
 An audio track classification model can however be made FHE friendly. We would train such a model in clear, and (given the model is FHE enabled) run inferenece on an encrypted query, yielding an encrypted result (track id) which the user would then decrypt. This would achieve the goal of privacy preserving track identification.
 In this work, we pick the following choices towards creating an audio track classification model:
  - with the help of spectrogram extraction from audio, transform audio classification task into image classification task (as recommended e.g. in [HuggingFace Audio Course](https://huggingface.co/learn/audio-course/chapter3/classification)
- - as we need to simulate noisy queries - use audio augmentation techniques to create datasets for audio (eventually image) classicification
+ - as we need to simulate noisy queries - use audio augmentation techniques to create datasets for audio (eventually image) classification
  - leverage on [Concrete ML image classification use case example](https://github.com/zama-ai/concrete-ml/tree/main/use_case_examples/cifar/cifar_brevitas_finetuning) for building an FHE enabled solution.
 
-Transforming audio classification task to image classicfication. Training and inference. A would-be solution would look like this:
-![#### Transforming audio classification task to image classicfication. Training and inference](assets/one_stage_training_and_inference.jpg)
+Transforming audio classification task to image classification. Training and inference. A would-be solution would look like this:
+![#### Transforming audio classification task to image classification. Training and inference](assets/one_stage_training_and_inference.jpg)
 
-However this approach has a significant drawback - it's **not scalable**. Classification accuracy would significantly deteriorate with a size of the music library. Need to refine this approach for better scalability
+However this approach has a significant drawback - it's **not scalable**. Classification accuracy would significantly deteriorate with the size of the music library. Need to refine this approach for better scalability
 ### 3. Two-stage classification
-A refined approach we're taking is of a two-stage classification. The idea is to break down the whole library into groups of tracks (clusters), and traing two classification models
+A refined approach we're taking is of a two-stage classification. The idea is to break down the whole library into groups of tracks (clusters), and train two classification models
  - a model to classify tracks onto clusters (single model)
  - an intra-cluster classification model, to classify tracks within a single given cluster (need to train `num_clusters` such models)
 For a `fma_small` library, we've chosen `num_clusters=80` so than an average cluser size would be around 100 tracks - which seems a very reasonable starting point for highly accurate intra-cluster classification models
@@ -49,20 +49,20 @@ We approach construction of the solution in two waves:
 
 We're now focusing on the first wave. For PoC we use a `fma_small` music library (see discussion on larger datasets at [Next steps](#next-steps))
 
-In order to train various types and flavors of models, need to prepare multiple datasets od spectrogram images. This is done in [Image_dataset_from_FMA.ipynb](Image_dataset_from_FMA.ipynb) notebook. 
+In order to train various types and flavors of models, need to prepare multiple datasets of spectrogram images. This is done in [Image_dataset_from_FMA.ipynb](Image_dataset_from_FMA.ipynb) notebook. 
 
 ### Audio augmentations
  - for audio augmentations we use the [`audiomentations`](https://github.com/iver56/audiomentations) library
  - we produce three levels of audio augmentations - `small`, `medium` and `large` (see `augment_policies` dict in the notebook). The idea is to train the models on `large` augmentations for maximum resilience. In the [Evaluation](#evaluation) section, we will be testing the system on queries of all the three levels of augmentations, and observe differences in resulting accuracy
  - as a part of `medium` and `large` augmentations, we use [ESC: Dataset for Environmental Sound Classification](https://huggingface.co/datasets/ashraq/esc50) as a source of background noises. The idea is to train the system to be robust for queries with background noise
 
-The resulting datasets uploaded to [HuggingFace Hub](https://huggingface.co/arieg). These are the datasets of interest:
+The resulting datasets were uploaded to [HuggingFace Hub](https://huggingface.co/arieg). These are the datasets of interest:
  - `arieg/cluster{XX}_large_150` - 150 large augmentations for each of the clusters, XX is a cluster id. Used for training of intra-cluster classification model
  - `arieg/8000_large_4_siamclusters` - spectrogram of an original audio, plus 4 large augmentations per each of 8000 tracks. Used for training of cluster classification model
  - `arieg/cluster{XX}_{augmentation}_10` - 10 augmented tracks per cluster, with each of 3 levels of augmentation. Used for end-to-end testing
 
 ### Clustering
-Several experiments demonstrated that the discriminating power of spectrogram based image classification model is quite strong, even on noisy (`large` augmentation) queries. Hence, with the two-staged classification approach, special attention should be paid to the first stage, cluster classification - need to ensure sufficient discriminating power between clusters. For this, need to ensure that tracks belonging to one cluster are "similar", while tracks belonging to different clusters are less "similar". A normative way to achieve such clusterig is to use audio (or audio spectrogram) embeddings as a baseline for tracks "similarity" measure
+Several experiments demonstrated that the discriminating power of spectrogram based image classification model is quite strong, even on noisy (`large` augmentation) queries. Hence, with the two-staged classification approach, special attention should be paid to the first stage, cluster classification - need to ensure sufficient discriminating power between clusters. For this, need to ensure that tracks belonging to one cluster are "similar", while tracks belonging to different clusters are less "similar". A normative way to achieve such clustering is to use audio (or audio spectrogram) embeddings as a baseline for tracks "similarity" measure
 
 We have tried several of-the-shelve audio embeddings methods:
  - [MERT-v1-95M](https://huggingface.co/m-a-p/MERT-v1-95M)
@@ -98,7 +98,7 @@ VGG19 based implementation in the [PoC_cluster_classification_training.ipynb](Po
 A digram illustrating an end-to-end flow
 <img src="assets/end2end_inference_fp32.jpg" width="750"/>
 
-We use `arieg/cluster{XX}_{augmentation}_10` datasets for several sample clusters, with each of 3 levels of augmentation. We run tracks from these datasets through the end-to-end flow, and measute top-1 and top-3 hits. Evaluation is imlemented in the [PoC_end_to_end_evaluation.ipynb](PoC_end_to_end_evaluation.ipynb) notebook
+We use `arieg/cluster{XX}_{augmentation}_10` datasets for several sample clusters, with each of 3 levels of augmentation. We run tracks from these datasets through the end-to-end flow, and measure top-1 and top-3 hits. Evaluation is implemented in the [PoC_end_to_end_evaluation.ipynb](PoC_end_to_end_evaluation.ipynb) notebook
 
 We observed the following representative results:
 |        | cluster00_small_10 | cluster00_medium_10 | cluster00_large_10 |
@@ -131,13 +131,13 @@ The benefit we've gained from extensive investment in the PoC is that now we nee
 ### Modifications
 The following noticeable changes implemented on top of the baseline Concrete ML example:
  1. Change the models to support 3x224x224 image inputs, rather that 3x32x32 as in the original example
- 2. Hit an issue of concrete-ml installation resuling in versions conflict on several libraries, inclusing `torchvision` (as appears in the output of the `!pip install  concrete-ml brevitas` cell of the quantized model notebbok). To circumvene the issue, needed to separate fp32 and quantized training into two notebooks, and transfer intermediate torch datasets from one notebook to another (for QAT) via cloud storage
+ 2. Hit an issue of concrete-ml installation resulting in versions conflict on several libraries, including `torchvision` (as appears in the output of the `!pip install  concrete-ml brevitas` cell of the quantized model notebook). To circumvent the issue, needed to separate fp32 and quantized training into two notebooks, and transfer intermediate torch datasets from one notebook to another (for QAT) via cloud storage
  3. IMHO found in the example a mismatch between kernel sizes of the AvgPool2d of `Fp32VGG11` (residing between the features and the final layer), and the last AvgPool2d of `QuantVGG11` features. Fixed
 
-## Results
-The resulting `state_dict`s of classification modlels (both cluster and intra-cluster ones), as well as training history of all these models, can be found [here](https://drive.google.com/drive/folders/15rX2vmkOumePB3aI_VkQKhXbhpsSqAlJ?usp=sharing)
+### Results
+The resulting `state_dict`'s of classification models (both cluster and intra-cluster ones), as well as training history of all these models, can be found [here](https://drive.google.com/drive/folders/15rX2vmkOumePB3aI_VkQKhXbhpsSqAlJ?usp=sharing)
 
-The fp32 results reside in the reffered folder, and quantized model training results reside in the `quant` subfolder of this folder
+The fp32 results reside in the referred folder, and quantized model training results reside in the `quant` subfolder of this folder
 
 ## Evaluation<a name="evaluation"></a>
 
