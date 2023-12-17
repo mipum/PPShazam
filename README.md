@@ -48,6 +48,22 @@ We approach construction of the solution in two waves:
 
 We're now focusing on the first wave. For PoC we use a `fma_small` music library (see discussion on larger datasets at [Next steps](#next-steps))
 
+In order to train various types and flavors of models, need to prepare multiple datasets od spectrogram images. This is done in [Image_dataset_from_FMA.ipynb](Image_dataset_from_FMA.ipynb) notebook. 
+
+### Audio augmentations
+ - for audio augmentations we use the [`audiomentations`](https://github.com/iver56/audiomentations) library
+ - we produce three levels of audio augmentations - `small`, `medium` and `large` (see `augment_policies` dict in the notebook). The idea is to train the models on `large` augmentations for maximum resilience. In the [Evaluation](#evaluation) section, we will be testing the system on queries of all the three levels of augmentations, and observe differences in resulting accuracy
+ - as a part of `medium` and `large` augmentations, we use [ESC: Dataset for Environmental Sound Classification](https://huggingface.co/datasets/ashraq/esc50) as a source of background noises. The idea is to train the system to be robust for queries with background noise
+
+The resulting datasets uploaded to [HuggingFace Hub](https://huggingface.co/arieg). These are the datasets of interest:
+ - `arieg/cluster{XX}_large_150` - 150 large augmentations for each of the clusters, XX is a cluster id. Used for training of intra-cluster classification model
+ - `arieg/8000_large_4_siamclusters` - spectrogram of an original audio, plus 4 large augmentations per each of 8000 tracks. Used for training of cluster classification model
+ - `arieg/cluster{XX}_{augmentation}_10` - 10 augmented tracks per cluster, with each of 3 levels of augmentation. Used for end-to-end testing
+### Clustering
+
+
+
+
 ## Quantization aware implementation<a name="quantization-aware-implementation"></a>
 
 ## Evaluation<a name="evaluation"></a>
