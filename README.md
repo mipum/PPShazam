@@ -95,7 +95,7 @@ The same model is used as for intra-cluster track classification
 VGG19 based implementation in the [PoC_cluster_classification_training.ipynb](PoC_cluster_classification_training.ipynb) notebook
 
 ### PoC Evaluation
-A digram illustrating an end-to-end flow
+A diagram illustrating an end-to-end flow
 <img src="assets/end2end_inference_fp32.jpg" width="750"/>
 
 We use `arieg/cluster{XX}_{augmentation}_10` datasets for several sample clusters, with each of 3 levels of augmentation. We run tracks from these datasets through the end-to-end flow, and measure top-1 and top-3 hits. Evaluation is implemented in the [PoC_end_to_end_evaluation.ipynb](PoC_end_to_end_evaluation.ipynb) notebook
@@ -128,6 +128,9 @@ The benefit we've gained from extensive investment in the PoC is that now we nee
  - fp32 model implemented in [Fp32_model_training.ipynb](Fp32_model_training.ipynb) notebook
  - quantized model implemented in [Quantization_aware_training_and_evaluation.ipynb](Quantization_aware_training_and_evaluation.ipynb) notebook
 
+The following diagram illustrates a quantized end-to-end flow
+<img src="assets/end2end_inference_quant.jpg" width="750"/>
+
 ### Modifications
 The following noticeable changes implemented on top of the baseline Concrete ML example:
  1. Change the models to support 3x224x224 image inputs, rather that 3x32x32 as in the original example
@@ -140,6 +143,9 @@ The resulting `state_dict`'s of classification models (both cluster and intra-cl
 The fp32 results reside in the referred folder, and quantized model training results reside in the `quant` subfolder of this folder
 
 ## Evaluation<a name="evaluation"></a>
+End-to-end evaluation of the quantized system implemented in the `End to End test` section of the [Quantization_aware_training_and_evaluation.ipynb](Quantization_aware_training_and_evaluation.ipynb) notebook. Implementation follows the same methodology as end-to-end evaluation of the clear system performed at the PoC. 
+
+Results are saved in a [e2e_test_results.csv](e2e_test_results.csv) file
 
 ## Next steps<a name="next-steps"></a>
 
