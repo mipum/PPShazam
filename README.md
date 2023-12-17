@@ -36,13 +36,7 @@ A refined approach we're taking is of a two-stage classification. The idea is to
  - an intra-cluster classification model, to classify tracks within a single given cluster (need to train `num_clusters` such models)
 For a `fma_small` library, we've chosen `num_clusters=80` so than an average cluser size would be around 100 tracks - which seems a very reasonable starting point for highly accurate intra-cluster classification models
 
-An overview of training an intra-cluster classification model
-<img src="assets/intra_cluster_track_classification.jpg" width="650"/>
-
-An overview of training an intra-cluster classification mode
-<img src="assets/cluster_classification.jpg" width="650"/>
-
-Indeed, as a foundation for both models need to have a suitable clusterization of the music library. This will be reviewed in the following section
+An overview of training an intra-cluster classification and a cluster classification models presented in the following section. Clusterization of the music library is also reviewed there
 ## Proof of Concept <a name="proof-of-concept"></a>
 We approach construction of the solution in two waves:
  1. Proof of concept in clear. The objective of this effort is to assess feasibility and accuracy of a solution in clear, as a baseline for a FHE-enabled solution. As well, at this stage we develop many assets (datasets and models) which are then reused for construction of the FHE-enabled model
