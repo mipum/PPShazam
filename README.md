@@ -1,8 +1,7 @@
-![# Ppazam](assets/logo.png)
+![# PPazam](assets/logo.png)
 
 # Ppazam
-A privacy preserving version of Shazam using Concrete ML
-Problem statement taken from [Create a privacy preserving version of Shazam using Concrete and/or Concrete ML](https://github.com/zama-ai/bounty-program/issues/79)
+Privacy preserving implementation of Shazam-like service
 
 ## Table of Contents
 - [Conceptual Architecture](#conceptual-architecture)
@@ -155,6 +154,6 @@ At this point, we did not have sufficient time and/or compute resources to explo
 ### Scale Up
 Based on the observed results with `fma_small`, we believe the above approach can be reasonably successfully extended to address `fma_full` library. Since we observe intra-cluster classification accuracy stronger than cluster classification - we propose to cluster `fma_full` (~106K tracks) into ~200 clusters, with average size of ~530 tracks per cluster 
 
-## Acknowledgements
-We’d like to thank Zama team for an exciting opportunity to work on this bounty
+## References
+[Create a privacy preserving version of Shazam using Concrete and/or Concrete ML](https://github.com/zama-ai/bounty-program/issues/79)
 
