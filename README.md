@@ -1,6 +1,6 @@
 ![# PPazam](assets/logo.png)
 
-# Ppazam
+# PPazam
 Privacy preserving implementation of Shazam-like service
 
 ## Table of Contents
@@ -58,7 +58,7 @@ The resulting datasets were uploaded to [HuggingFace Hub](https://huggingface.co
 ### Clustering
 Several experiments demonstrated that the discriminating power of spectrogram based image classification model is quite strong, even on noisy (`large` augmentation) queries. Hence, with the two-staged classification approach, special attention should be paid to the first stage, cluster classification - need to ensure sufficient discriminating power between clusters. For this, need to ensure that tracks belonging to one cluster are "similar", while tracks belonging to different clusters are less "similar". A normative way to achieve such clustering is to use audio (or audio spectrogram) embeddings as a baseline for tracks "similarity" measure
 
-We have tried several of-the-shelve audio embeddings methods:
+We have tried several of-the-shelf audio embeddings methods:
  - [MERT-v1-95M](https://huggingface.co/m-a-p/MERT-v1-95M)
  - [OpenCLIP](https://github.com/mlfoundations/open_clip)
  - [YAMNet](https://www.tensorflow.org/hub/tutorials/yamnet)
